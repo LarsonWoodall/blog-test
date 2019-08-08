@@ -1,17 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <AddPost v-on:add-post="addPost"/>
+    <BlogPosts v-bind:blogPostObjs="blogPostObjs"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BlogPosts from './components/BlogPosts';
+import AddPost from './components/AddPost';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    BlogPosts,
+    AddPost
+  },
+  data(){
+    return{
+            blogPostObjs: [
+              {
+                id: 1,
+                title: "Hello World",
+                author: "Larson",
+                body: "this is our first post, isn't it very very cool?"
+              }
+            ]
+          }
+  },
+  methods: {
+    AddPost(newPost){
+      this.blogPostObjs = [...this.blogPostObjs, newPost];
+    }
   }
 }
 </script>
@@ -24,5 +43,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  background: #555;
+  padding: 7px 20px;
+  cursor: pointer;
 }
 </style>
